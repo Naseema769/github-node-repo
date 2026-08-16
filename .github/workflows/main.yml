@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Use Node.js
         uses: actions/setup-node@v4
@@ -23,12 +23,6 @@ jobs:
 
       - name: test
         run: echo "test is passed"
-
-      - name: Upload file as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: shared-data
-          path: ~/.npm/
        name: shared-data
        path: ~/.npm
 
