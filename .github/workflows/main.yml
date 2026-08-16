@@ -20,6 +20,11 @@ jobs:
 
       - name: run
         run: npm run build --if-present 
+        - name: Upload file as artifact
+          uses: actions/upload-artifact@v4
+        with:
+         name: shared-data
+      path: ~/.npm
         
 
       - name: test
