@@ -26,5 +26,5 @@ jobs:
        name: Upload artifact
        uses: actions/upload-artifact@v4
        with:
-            name: my-build-artifact   # Name of the downloadable artifact
+            name: my-build-artifact   
           path: build/
