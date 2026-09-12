@@ -1,31 +1,20 @@
 name: NODE-JS
 
 on: [workflow_dispatch, push]
+
 permissions: write-all
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
-
-  
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: checkout
-        uses: actions/checkout@v7
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v4
-        with:
-          languages: $'javascript-typescript' 
-        # For build-mode use "none" since Node.js is an interpreted language
-          build-mode: none
+        uses: actions/checkout@v4
 
-      # Perform the actual CodeQL analysis and upload results
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
@@ -34,8 +23,17 @@ jobs:
       - name: install dependencies
         run: npm install
 
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: 'javascript-typescript'
+          build-mode: none
+
       - name: run
-        run: npm run build --if-present 
+        run: npm run build --if-present
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
 
       - name: test
         run: echo "test is passed"
@@ -43,6 +41,5 @@ jobs:
       - name: Upload artifact upload
         uses: actions/upload-artifact@v4
         with:
-          name: artifact-1  
-          path: 
-               package.json
+          name: artifact-1
+          path: package.json
